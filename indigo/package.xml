@@ -1,0 +1,21 @@
+<package>
+  <name>python_tblib</name>
+  <version>:{version}</version>
+  <description>
+Traceback fiddling library. Allows you to pickle tracebacks.
+  </description>
+
+  <license>BSD</license>
+
+  <url type="repository">https://github.com/ionelmc/python-tblib</url>
+  <url type="bugtracker">https://github.com/ionelmc/python-tblib/issues</url>
+
+  <maintainer email="asmodehn@gmail.com">AlexV</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>python-setuptools</build_depend>
+
+</package>
+
+
+
