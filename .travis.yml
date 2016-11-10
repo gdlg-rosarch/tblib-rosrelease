@@ -1,46 +1,47 @@
-sudo: required
-dist: trusty
-language: generic
-
-branches:
-  except:
-    - /^rpm/indigo/trusty/.*$/  # not testing rpm builds in trusty
-    - /^debian/indigo/trusty/.*$/ # not testing pacakge building here (ROS buildfarm will do it)
-
-  only:
-    # We can test release or upstream after patches have been applied
-    - /^release/.*$/
-    - upstream
-
-# this is a third party package, we check only usual catkin builds.
-# Let the ros buildfarm check the actual deb package build.
-
+language: python
+python: '3.5'
+sudo: false
 env:
-  # This will check any ROS distro supported on this OS
-  # checking devel and install separately so that they don't influence each other (dependencies, path, env, etc.)
-  - CI_ROS_DISTRO=indigo ROS_FLOW=devel
-  - CI_ROS_DISTRO=indigo ROS_FLOW=install
+  global:
+    LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+  matrix:
+    - TOXENV=check
 
+    - TOXENV=2.6-cover,coveralls,codecov
+    - TOXENV=2.6-nocov
+
+    - TOXENV=2.7-cover,coveralls,codecov
+    - TOXENV=2.7-nocov
+
+    - TOXENV=3.3-cover,coveralls,codecov
+    - TOXENV=3.3-nocov
+
+    - TOXENV=3.4-cover,coveralls,codecov
+    - TOXENV=3.4-nocov
+
+    - TOXENV=3.5-cover,coveralls,codecov
+    - TOXENV=3.5-nocov
+
+    - TOXENV=pypy-cover,coveralls,codecov
+    - TOXENV=pypy-nocov
+
+before_install:
+  - python --version
+  - uname -a
+  - lsb_release -a
 install:
-# Add ROS repositories
-  - sudo sh -c 'echo "deb http://packages.ros.org/ros-shadow-fixed/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list'
-  - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
-  - sudo apt-get update
-# Install ROS base
-  - sudo apt-get install ros-$CI_ROS_DISTRO-ros-base -y
-# Install and initialize rosdep
-  - sudo apt-get install python-rosdep -y
-  - sudo `which rosdep` init
-  - rosdep update
-# Use rosdep to install pyros-setup's dependencies
-  - rosdep install --default-yes --from-paths ./ --rosdistro $CI_ROS_DISTRO
-
+  - pip install tox
+  - virtualenv --version
+  - easy_install --version
+  - pip --version
+  - tox --version
 script:
-  # full ROS setup, build and test
-  # rospack find is TMP. debugging travis env here...
-  - source /opt/ros/$CI_ROS_DISTRO/setup.bash && rospack profile
-  - bash travis_checks.sh
-
+  - tox -v
+after_failure:
+  - more .tox/log/* | cat
+  - more .tox/*/log/* | cat
 notifications:
-  email: false
+  email:
+    on_success: never
+    on_failure: always
 
