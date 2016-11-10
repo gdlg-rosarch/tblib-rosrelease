@@ -1,8 +1,8 @@
 <package>
-  <name>python_tblib</name>
+  <name>tblib</name>
   <version>:{version}</version>
   <description>
-Traceback fiddling library. Allows you to pickle tracebacks.
+    Traceback fiddling library. Allows you to pickle tracebacks.
   </description>
 
   <license>BSD</license>
