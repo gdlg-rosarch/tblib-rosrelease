@@ -1,0 +1,13 @@
+Source: ros-indigo-tblib
+Section: misc
+Priority: extra
+Maintainer: AlexV <asmodehn@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), python-setuptools, ros-indigo-catkin
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-indigo-tblib
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, 
+Description: Traceback fiddling library.
+ Allows you to pickle tracebacks.
