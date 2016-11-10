@@ -17,5 +17,5 @@ elif [ "$ROS_FLOW" == "install" ]; then
     source install/setup.bash
 fi
 
-python -m pytest --doctest-modules ../README.rst
+python ../tests/test_tblib.py
 
