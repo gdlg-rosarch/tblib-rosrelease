@@ -1,59 +1,46 @@
-language: python
+sudo: required
+dist: trusty
+language: generic
 
-python:
-  - "2.6"
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "pypy"
+branches:
+  except:
+    - /^rpm/indigo/trusty/.*$/  # not testing rpm builds in trusty
+    - /^debian/indigo/trusty/.*$/ # not testing pacakge building here (ROS buildfarm will do it)
+
+  only:
+    # We can test release or upstream after patches have been applied
+    - /^release/.*$/
+    - upstream
+
+# this is a third party package, we check only usual catkin builds.
+# Let the ros buildfarm check the actual deb package build.
 
 env:
-  global:
-    PYTHONPATH=src:tests
-    PYTHONUNBUFFERED=yes
-    MANHOLE_TEST_TIMEOUT=30
-  matrix:
-    - WITH_COVERAGE=no
-    - WITH_COVERAGE=yes
-
-before_install:
-  - |
-    if python --version |& grep PyPy; then
-      deactivate
-      sudo apt-add-repository --yes ppa:pypy/ppa
-      sudo apt-get update
-      sudo apt-get install pypy
-      source ~/virtualenv/pypy/bin/activate
-    fi
-    python --version
-    uname -a
-    lsb_release -a
-    sudo apt-get install strace
+  # This will check any ROS distro supported on this OS
+  # checking devel and install separately so that they don't influence each other (dependencies, path, env, etc.)
+  - CI_ROS_DISTRO=indigo ROS_FLOW=devel
+  - CI_ROS_DISTRO=indigo ROS_FLOW=install
 
 install:
-  - if [[ $WITH_COVERAGE == yes ]]; then pip install coverage coveralls; fi
-  - python setup.py develop
-  - sudo rm -rf /dev/shm || /bin/true# see https://github.com/travis-ci/travis-core/issues/187
-  - sudo ln -Tsf /{run,dev}/shm || /bin/true
+# Add ROS repositories
+  - sudo sh -c 'echo "deb http://packages.ros.org/ros-shadow-fixed/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list'
+  - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+  - sudo apt-get update
+# Install ROS base
+  - sudo apt-get install ros-$CI_ROS_DISTRO-ros-base -y
+# Install and initialize rosdep
+  - sudo apt-get install python-rosdep -y
+  - sudo `which rosdep` init
+  - rosdep update
+# Use rosdep to install pyros-setup's dependencies
+  - rosdep install --default-yes --from-paths ./ --rosdistro $CI_ROS_DISTRO
 
 script:
-  - python --version
-  - rm .coverage* || true
-  - stat /lib/x86_64-linux-gnu/libgcc_s.so.1
-  - export LOG_NAME="$TRAVIS_PYTHON_VERSION-$TRAVIS_JOB_NUMBER-$TRAVIS_BUILD_ID.log"
-  - |
-    if [[ $WITH_COVERAGE == yes ]]; then
-      #strace -f -s 8000 -o "$LOG_NAME"
-      coverage run --source=src --parallel-mode tests/test_tblib.py
-    else
-      #strace -f -s 8000 -o "$LOG_NAME"
-      python tests/test_tblib.py
-    fi
+  # full ROS setup, build and test
+  # rospack find is TMP. debugging travis env here...
+  - source /opt/ros/$CI_ROS_DISTRO/setup.bash && rospack profile
+  - bash travis_checks.sh
 
-after_failure:
-  - curl -i -F "upfile=@$LOG_NAME" http://home.ionelmc.ro/
+notifications:
+  email: false
 
-after_success:
-  - coverage combine || true
-  - coverage report --show-missing --include='src/*' || true
-  - coveralls || true
