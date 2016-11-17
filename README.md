@@ -157,3 +157,10 @@ Versions of tools used:
 - vcstools version: `0.1.38`
 
 
+# tblib-rosrelease
+Releasing https://github.com/ionelmc/python-tblib for ROS
+
+
+| Indigo | Jade | Kinetic |
+|:------:|:----:|:-------:|
+| [![Build Status](https://travis-ci.org/asmodehn/tblib-rosrelease.svg?branch=release%2Findigo%2Ftblib)](https://travis-ci.org/asmodehn/tblib-rosrelease) | [![Build Status](https://travis-ci.org/asmodehn/tblib-rosrelease.svg?branch=release%2Fjade%2Ftblib)](https://travis-ci.org/asmodehn/tblib-rosrelease) | [![Build Status](https://travis-ci.org/asmodehn/tblib-rosrelease.svg?branch=release%2Fkinetic%2Ftblib)](https://travis-ci.org/asmodehn/tblib-rosrelease) |
