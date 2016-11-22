@@ -1,0 +1,23 @@
+ros-kinetic-tblib (1.2.0-1xenial) xenial; urgency=high
+
+  * Fixed handling for tracebacks from generators and other internal improvements
+    and optimizations. Contributed by DRayX in #10 <https://github.com/ionelmc/python-tblib/issues/10>
+    and #11 <https://github.com/ionelmc/python-tblib/pull/11>.
+
+ -- AlexV <asmodehn@gmail.com>  Thu, 17 Dec 2015 15:00:00 -0000
+
+ros-kinetic-tblib (1.1.0-1xenial) xenial; urgency=high
+
+  * Added support for Python 2.6. Contributed by Arcadiy Ivanov in
+    #8 <https://github.com/ionelmc/python-tblib/pull/8>.
+
+ -- AlexV <asmodehn@gmail.com>  Sun, 26 Jul 2015 15:00:00 -0000
+
+ros-kinetic-tblib (1.0.0-1xenial) xenial; urgency=high
+
+  * Added ``to_dict`` method and ``from_dict`` classmethod on Tracebacks.
+    Contributed by beckjake in #5 <https://github.com/ionelmc/python-tblib/pull/5>.
+
+ -- AlexV <asmodehn@gmail.com>  Sun, 29 Mar 2015 15:00:00 -0000
+
+
