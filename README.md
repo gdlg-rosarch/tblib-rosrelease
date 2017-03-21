@@ -1,3 +1,26 @@
+## tblib (kinetic) - 1.2.0-2
+
+The packages in the `tblib` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release --track kinetic --rosdistro kinetic tblib` on `Tue, 21 Mar 2017 05:16:58 -0000`
+
+The `tblib` package was released.
+
+Version of package(s) in repository `tblib`:
+
+- upstream repository: https://github.com/ionelmc/python-tblib.git
+- release repository: https://github.com/asmodehn/tblib-rosrelease.git
+- rosdistro version: `1.2.0-1`
+- old version: `1.2.0-1`
+- new version: `1.2.0-2`
+
+Versions of tools used:
+
+- bloom version: `0.5.25`
+- catkin_pkg version: `0.2.10`
+- rosdep version: `0.11.5`
+- rosdistro version: `0.4.4`
+- vcstools version: `0.1.39`
+
+
 ## tblib (kinetic) - 1.2.0-1
 
 The packages in the `tblib` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release --rosdistro kinetic --track kinetic tblib` on `Tue, 22 Nov 2016 10:06:59 -0000`
