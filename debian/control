@@ -1,0 +1,13 @@
+Source: ros-jade-tblib
+Section: misc
+Priority: extra
+Maintainer: AlexV <asmodehn@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-jade-catkin (>= 0.6.18), ros-jade-catkin-pip (>= 0.2.0)
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-jade-tblib
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, 
+Description: Traceback fiddling library.
+ Allows you to pickle tracebacks.
