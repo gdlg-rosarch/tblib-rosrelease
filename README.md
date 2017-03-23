@@ -1,3 +1,26 @@
+## tblib (indigo) - 1.2.0-4
+
+The packages in the `tblib` repository were released into the `indigo` distro by running `/usr/bin/bloom-release --rosdistro indigo --track indigo tblib` on `Thu, 23 Mar 2017 08:52:54 -0000`
+
+The `tblib` package was released.
+
+Version of package(s) in repository `tblib`:
+
+- upstream repository: https://github.com/ionelmc/python-tblib.git
+- release repository: https://github.com/asmodehn/tblib-rosrelease.git
+- rosdistro version: `1.2.0-3`
+- old version: `1.2.0-3`
+- new version: `1.2.0-4`
+
+Versions of tools used:
+
+- bloom version: `0.5.25`
+- catkin_pkg version: `0.3.1`
+- rosdep version: `0.11.5`
+- rosdistro version: `0.6.1`
+- vcstools version: `0.1.39`
+
+
 ## tblib (jade) - 1.2.0-1
 
 The packages in the `tblib` repository were released into the `jade` distro by running `/usr/bin/bloom-release --rosdistro jade --track jade tblib` on `Thu, 23 Mar 2017 01:12:54 -0000`
